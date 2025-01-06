@@ -1,4 +1,4 @@
-# buzzattractions
+# Buzz Attractions
 
 ## サイト概要
 ### サイトテーマ
