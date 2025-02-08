@@ -1,5 +1,7 @@
 class PostImagesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
+
   def new
     @post_image = PostImage.new
   end
@@ -51,9 +53,9 @@ class PostImagesController < ApplicationController
   end
 
   def is_matching_login_user
-    post_image = PostImage.find(params[:id])
-    unless post_image.user == current_user
+    @post_image = current_user.post_images.find_by_id(params[:id])
+    if !@post_image
       redirect_to post_images_path
     end
-  end    
+  end 
 end

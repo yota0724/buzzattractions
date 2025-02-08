@@ -1,14 +1,7 @@
 <h2>観光地編集</h2>
 <span>現在ログイン中のユーザー：<%= current_user.name %></span>
 
-<% if @post_image.errors.any? %>
-  <%= @post_image.errors.count %>件のエラーが発生しました
-  <ul>
-    <% @post_image.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= render 'layouts/error_messages', model: @post_image %>
 
 <%= form_with model: @post_image do |f| %>
   <label for="inputName">観光地名</label>

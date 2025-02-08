@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
+
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images.page(params[:page])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
     flash[:notice] = "You have updated user successfully."
     redirect_to user_path
@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     if @user.destroy
       redirect_to new_user_registration_path, notice: 'ユーザー情報が正常に削除されました'
     else
@@ -35,8 +34,8 @@ class UsersController < ApplicationController
   end
 
   def is_matching_login_user
-    user = User.find(params[:id])
-    unless user.id == current_user.id
+    @user = User.find_by_id(params[:id])
+    if @user != current_user
       redirect_to post_images_path
     end
   end
