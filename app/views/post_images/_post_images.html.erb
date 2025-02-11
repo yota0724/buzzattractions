@@ -19,6 +19,7 @@
         <td><%= post_image.title %></td>
         <td><%= image_tag post_image.user.get_profile_image(100,100) %></td>
         <td><%= post_image.user.name %></td>
+        <td>コメント数： <%= post_image.comments.count %></td>
         <td><%= link_to "詳細", post_image_path(post_image), class: "btn btn-outline-primary" %></td>
       </tr>
     <% end %>

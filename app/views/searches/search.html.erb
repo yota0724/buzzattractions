@@ -1,0 +1,44 @@
+<table class="table table-hover table-inverse">
+  <!--検索対象モデルがUserの時 -->
+  <% if @range == "User" %>
+  <h2>Users search for "<%= @word %>"</h2>
+    <thead>
+      <tr>
+        <th>image</th>
+        <th>name</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= image_tag user.get_profile_image(50, 50) %></td>
+          <td><%= user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <!--検索対象モデルがUserではない時(= 検索対象モデルがPost_imageの時) -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>body</th>
+
+      </tr>
+    <tbody>
+    <h2>Post_image search for "<%= @word %>"</h2>
+    <% @post_images.each do |post_image| %>
+      <tr>
+        <td>
+          <%= link_to user_path(post_image.user) do %>
+            <%= image_tag post_image.user.get_profile_image(50, 50) %>
+          <% end %>
+        </td>
+        <td><%= link_to post_image.title , post_image_path(post_image.id) %></td>
+        <td><%= post_image.body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

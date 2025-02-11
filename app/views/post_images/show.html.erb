@@ -10,6 +10,10 @@
           <td><%= @post_image.title %><td>
         </tr>
         <tr>
+          <th>コメント数</th>
+          <td><%= @post_image.comments.count %></td>
+        </tr>
+        <tr>
           <th>説明</th>
           <td><%= @post_image.body %><td>
         </tr>
@@ -32,5 +36,8 @@
       <%= link_to "編集", edit_post_image_path(@post_image), class: "btn btn-outline-primary btn-block" %>
       <%= link_to "削除", post_image_path(@post_image), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-outline-danger btn-block" %>
     <% end %>
+
+    <%= render "comments/index", post_image: @post_image %>
+    <%= render "comments/form", post_image: @post_image, comment: @comment %>
   </div>
 </div>
