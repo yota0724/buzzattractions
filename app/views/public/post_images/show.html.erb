@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag @post_image.get_image(300, 300) %>
+  </div>
+  <div class="col-md-8">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>観光地名</th>
+          <td><%= @post_image.title %><td>
+        </tr>
+        <tr>
+          <th>コメント数</th>
+          <td><%= @post_image.comments.count %></td>
+        </tr>
+        <tr>
+          <th>説明</th>
+          <td><%= @post_image.body %><td>
+        </tr>
+        <tr>
+          <th>投稿ユーザー画像</th>
+          <td><%= image_tag @post_image.user.get_profile_image(100,100) %></td>
+        </tr>
+        <tr>
+          <th>ユーザーネーム</th>
+          <td><%= @post_image.user.name %></td>
+        </tr>
+        <tr>
+          <th>投稿日</th>
+          <td><%= @post_image.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+      
+      </tbody>
+    </table>
+    <% if @post_image.user == current_user %>
+      <%= link_to "編集", edit_post_image_path(@post_image), class: "btn btn-outline-primary btn-block" %>
+      <%= link_to "削除", post_image_path(@post_image), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-outline-danger btn-block" %>
+    <% end %>
+
+    <%= render "public/comments/index", post_image: @post_image %>
+    <%= render "public/comments/form", post_image: @post_image, comment: @comment %>
+  </div>
+</div>

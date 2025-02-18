@@ -1,0 +1,35 @@
+<div>
+  <h3><%= @user.name %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  <%= link_to '退会', admin_user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>画像</th>
+      <th>観光地名</th>
+      <th>投稿ユーザー画像</th>
+      <th>ユーザーネーム</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @post_images.each do |post_image| %>
+      <tr>
+        <td>
+          <%= link_to post_image_path(post_image.id) do %>
+            <%= image_tag post_image.get_image(100,100) %>
+          <% end %>
+        </td>
+        <td><%= post_image.title %></td>
+        <td><%= image_tag post_image.user.get_profile_image(100,100) %></td>
+        <td><%= post_image.user.name %></td>
+        <td>コメント数： <%= post_image.comments.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="d-flex justify-content-center">
+  <%= paginate @post_images %>
+</div>
