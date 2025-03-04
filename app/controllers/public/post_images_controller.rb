@@ -19,7 +19,20 @@ class Public::PostImagesController < ApplicationController
   end
 
   def index
-    @post_images = PostImage.page(params[:page])
+    if params[:latest]
+      @post_images = PostImage.latest
+    elsif params[:old]
+      @post_images = PostImage.old
+    elsif params[:most_favorited]
+      @post_images = Kaminari.paginate_array(PostImage.most_favorited)
+    elsif params[:most_commented]
+      @post_images = Kaminari.paginate_array(PostImage.most_commented)
+    else
+      @post_images = PostImage.page(params[:page])
+    end
+      @post_images = @post_images.page(params[:page])
+      #@post_images = PostImage.order(:desc).page(params[:page]).limit(1)
+    
   end
 
   def show

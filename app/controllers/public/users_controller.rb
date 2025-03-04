@@ -10,6 +10,10 @@ class Public::UsersController < ApplicationController
   def edit
   end
 
+  def index
+    @users = User.all
+  end
+
   def update
     if @user.update(user_params)
     flash[:notice] = "You have updated user successfully."
