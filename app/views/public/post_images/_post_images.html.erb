@@ -21,7 +21,6 @@
         <td><%= post_image.user.name %></td>
         <td>コメント数： <%= post_image.comments.count %></td>
         <td>いいね数： <%= post_image.favorites.count %></td>
-        <td>投稿日： <%= post_image.created_at.strftime('%Y/%m/%d') %></td>
         <td><%= link_to "詳細", post_image_path(post_image), class: "btn btn-outline-primary" %></td>
       </tr>
     <% end %>
